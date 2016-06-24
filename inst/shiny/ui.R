@@ -1,34 +1,37 @@
-library(shiny)
-library(shinyAce)
+library("shiny")
+library("shinyAce")
+library("psych")
+library("lavaan")
+library("semPlot")
 
 
 shinyUI(navbarPage(title="lavaan.shiny: latent variable analysis",windowTitle="lavaan.shiny v1.0",
                    tabPanel("Confirmatory Factor Analysis", icon = icon("bar-chart", lib = "font-awesome"),
                             sidebarPanel(
-                              
+
                               submitButton(text = "Update View", icon = icon("refresh", lib = "font-awesome"), width = NULL),
                               helpText("Click here to update your results, you need to do this after you change the data, model, or any of the settings"),
                               br(),
                               actionButton("quit", "Quit", icon("sign-out")),
                               helpText("Press Quit to exit the application")
-                              
+
                             ),
-                            
+
                             p('Estimation may take a few seconds to minutes depending on the dataset.'),
                             h3("Specifying the model"),
                             p('See',
                               a("lavaan", href="http://lavaan.ugent.be/", target="_blank"),
                               'for the syntax.'),
-                            
+
                             aceEditor("cfamodel", mode="r", value="# three factor model
 visual =~ x1 + x2 + x3
 textual =~ x4 + x5 + x6
 speed =~ x7 + x8 + x9"),
-                            
+
                             h3("Data Entry"),
                             p('Note: Input values must be separated by tabs. Copy and paste from Excel.'),
                             p("Your data needs to have exactly the same header (variable names) in the first row."),
-                            
+
                             aceEditor("textcfa", value="id\tsex\tageyr\tagemo\tschool\tgrade\tx1\tx2\tx3\tx4\tx5\tx6\tx7\tx8\tx9
 1\t1\t13\t1\t1\t7\t3.3333333\t7.75\t0.375\t2.3333333\t5.75\t1.2857143\t3.391304\t5.75\t6.361111
 2\t2\t13\t7\t1\t7\t5.3333333\t5.25\t2.125\t1.6666667\t3\t1.2857143\t3.782609\t6.25\t7.916667
@@ -331,49 +334,49 @@ speed =~ x7 + x8 + x9"),
 348\t2\t14\t3\t2\t8\t4.6666667\t5.5\t1.875\t3.6666667\t5.75\t4.2857143\t4\t6\t7.611111
 349\t1\t14\t2\t2\t8\t4.3333333\t6.75\t0.5\t3.6666667\t4.5\t2\t5.086957\t6.2\t4.388889
 351\t1\t13\t5\t2\tNA\t4.3333333\t6\t3.375\t3.6666667\t5.75\t3.1428571\t4.086957\t6.95\t5.166667",  mode="r"),
-                            
+
                             br(),
-                            
+
                             h3("Basic statistics"),
                             verbatimTextOutput("textareacfa"),
-                            
+
                             br(),
-                            
+
                             h3("Correlation"),
                             verbatimTextOutput("correl.cfa"),
-                            
+
                             br(),
-                            
+
                             strong("Scatter plot matrices"),
                             br(),
-                            
+
                             plotOutput("corPlot.cfa"),
-                            
+
                             br(),
-                            
+
                             h3("CFA result"),
-                            
+
                             verbatimTextOutput("result.cfa"),
-                            
+
                             br(),
-                            
+
                             h3("Path diagram (Unstandardized estimates)"),
-                            
+
                             plotOutput("cfaplot1"),
-                            
+
                             br(),
-                            
+
                             h3("Path diagram (Standardized estimates)"),
-                            
+
                             plotOutput("cfaplot2"),
-                            
+
                             br(),
                             br(),
-                            
-                            
+
+
                             strong('R session info'),
                             verbatimTextOutput("info.cfa")
-                            
+
                             ),
 tabPanel("Growth Curve Modeling", icon = icon("stats", lib = "glyphicon"),
          sidebarPanel(
@@ -383,8 +386,8 @@ tabPanel("Growth Curve Modeling", icon = icon("stats", lib = "glyphicon"),
            br(),
            actionButton("quit", "Quit", icon("sign-out")),
            helpText("Press Quit to exit the application")
-           
-           
+
+
          ),
 
             p('Estimation may take a few seconds to minutes depending on the dataset.'),
@@ -392,7 +395,7 @@ tabPanel("Growth Curve Modeling", icon = icon("stats", lib = "glyphicon"),
          p('See',
            a("lavaan", href="http://lavaan.ugent.be/", target="_blank"),
            'for the syntax.'),
-         
+
 aceEditor("gcmmodel", mode="r", value="# linear growth model with 4 timepoints
 # intercept and slope with fixed coefficients
 i =~ 1*t1 + 1*t2 + 1*t3 + 1*t4
@@ -858,21 +861,21 @@ br(),
             ),
 tabPanel("Structural Equation Modeling", icon = icon("table", lib = "font-awesome"),
          sidebarPanel(
-           
+
            submitButton(text = "Update View", icon = icon("refresh", lib = "font-awesome"), width = NULL),
            helpText("Click here to update your results, you need to do this after you change the data, model, or any of the settings"),
            br(),
            actionButton("quit", "Quit", icon("sign-out")),
            helpText("Press Quit to exit the application")
-           
+
          ),
-         
+
          p('Estimation may take a few seconds to minutes depending on the dataset.'),
          h3("Specifying the model"),
          p('See',
            a("lavaan", href="http://lavaan.ugent.be/", target="_blank"),
            'for the syntax.'),
-         
+
          aceEditor("semmodel", mode="r", value="# measurement model
 ind60 =~ x1 + x2 + x3
 dem60 =~ y1 + y2 + y3 + y4
@@ -886,11 +889,11 @@ y2 ~~ y4 + y6
 y3 ~~ y7
 y4 ~~ y8
 y6 ~~ y8"),
-         
+
          h3("Data Entry"),
          p('Note: Input values must be separated by tabs. Copy and paste from Excel.'),
          p("Your data needs to have exactly the same header (variable names) in the first row."),
-         
+
          aceEditor("textsem", value="y1\ty2\ty3\ty4\ty5\ty6\ty7\ty8\tx1\tx2\tx3
 2.5\t0\t3.333333\t0\t1.25\t0\t3.72636\t3.333333\t4.442651\t3.637586\t2.557615
 1.25\t0\t3.333333\t0\t6.25\t1.1\t6.666666\t0.736999\t5.384495\t5.062595\t3.568079
@@ -967,52 +970,52 @@ y6 ~~ y8"),
 7.5\t7\t9.999998\t6.852998\t7.5\t6.34834\t6.666666\t7.508044\t6.12905\t6.403574\t5.001796
 10\t6.666666\t9.999998\t10\t10\t6.666666\t9.999998\t10\t5.003946\t4.962845\t3.976994
 3.75\t3.333333\t0\t0\t1.25\t3.333333\t0\t0\t4.488636\t4.89784\t2.867566",  mode="r"),
-         
+
          br(),
-         
+
          h3("Basic statistics"),
          verbatimTextOutput("textareasem"),
-         
+
          br(),
-         
+
          h3("Correlation"),
          verbatimTextOutput("correl.sem"),
-         
+
          br(),
-         
+
          strong("Scatter plot matrices"),
          br(),
-         
+
          plotOutput("corPlot.sem"),
-         
+
          br(),
-         
+
          h3("SEM result"),
-         
+
          verbatimTextOutput("result.sem"),
-         
+
          br(),
-         
+
          h3("Path diagram (Unstandardized estimates)"),
-         
+
          plotOutput("semplot1"),
-         
+
          br(),
-         
+
          h3("Path diagram (Standardized estimates)"),
-         
+
          plotOutput("semplot2"),
-         
+
          br(),
          br(),
-         
-         
+
+
          strong('R session info'),
          verbatimTextOutput("info.sem")
-         
-),      
+
+),
 navbarMenu("Model Options and Settings", icon = icon("wrench", lib = "font-awesome"),
-        tabPanel("Estimator Options", icon = icon("table", lib = "font-awesome"),
+tabPanel("Estimator Options", icon = icon("table", lib = "font-awesome"),
 
                  radioButtons("estimatoroptions", strong("Estimator Options"),
                               c("Maximum likelihood" = "ML",
@@ -1021,16 +1024,66 @@ navbarMenu("Model Options and Settings", icon = icon("wrench", lib = "font-aweso
                                 "Unweighted least squares" = "ULS",
                                 "Diagonally weighted least squares" = "DWLS"
                               ), selected = "ML"),
-#                  radioButtons("likelihoodoptions", strong("Maximum Likelihood Options"),
-#                               c("Normal" = "normal",
-#                                 "Wishart" = "wishart"
-#                               ), selected = "normal"),                 
 
                  br()
-                 
+
         ),
+ tabPanel("Graphic Options", icon = icon("line-chart", lib = "font-awesome"),
+         radioButtons("lay", strong("Plot Layout"),
+                       c("Circle" = "circle",
+                         "Circle2" = "circles",
+                         "Tree" = "tree",
+                         "Tree2" = "tree2",
+                         "Spring" = "spring",
+                         "Spring2" = "spring2"
+                       ), selected = "tree", inline = TRUE),
+         p("Tree"),
+         p("The integrated tree-like layout. Places exogenous variables at the top and endogenous variables at the bottom. See 'details' for more details."),
+         p("Tree2"),
+         p("Calls the layout.reingold.tilford function from the igraph package (Csardi & Nepusz, 2006), which uses the Reingold-Tilford algorithm (Reingold & Tilford, 1981). Before calling the algorithm roots are chosen and a slightly modified version of the graph is used to produce consistent results. See 'details'."),
+         p("Circle"),
+         p("The same layout as tree, except that afterwards the horizontal levels of the layout are placed in circles. Especially useful for models with a large number of manifest variables and a relatively small number of latent variables."),
+         p("Circle2"),
+         p("The same layout as tree2, except that afterwards the horizontal levels of the layout are placed in circles"),
+         p("Spring"),
+         p("Calls the spring layout in qgraph, which uses the Fruchterman-reingold algorithm (Fruchterman & Reingold, 1991)."),
+
+#         br(),
+#         radioButtons("fitmeasures", strong("Fit Measures"),
+#                       c("True" = TRUE,
+#                         "False" = FALSE
+#                       ), selected = "FALSE"),
+#         br(),
+#         radioButtons("standardized", strong("Show Standardized Solution"),
+#                      c("True" = TRUE,
+#                        "False" = FALSE
+#                      ), selected = "FALSE"),
+#         br(),
+#         radioButtons("rsq", strong("Show R-Square values for the dependent variables in the model"),
+#                      c("True" = TRUE,
+#                        "False" = FALSE
+#                      ), selected = "FALSE"),
+#         br(),
+#         radioButtons("modindices", strong("Print Modification Indices"),
+#                      c("True" = TRUE,
+#                        "False" = FALSE
+#                      ), selected = "FALSE"),
+          br()
+
+ ),
+tabPanel("Model Options", icon = icon("list", lib = "font-awesome"),
+
+         radioButtons("orthogonaloptions", strong("Orthogonal"),
+                      c("True" = "TRUE",
+                        "False" = "FALSE"
+                      ), selected = "FALSE"),
+         br(),
+         p("If TRUE is selected the exogenous latent variables are assumed to be uncorrelated, by defualt lavaan sets this to false"),
+         br()
+
+),
         tabPanel("Standard Errors Options", icon = icon("cog", lib = "font-awesome"),
-                 
+
                  radioButtons("seoptions", strong("Method for Computing Standard Errors"),
                               c("Conventional Standard Errors" = "standard",
                                 "First-order Derivatives" = "first.order",
@@ -1039,33 +1092,35 @@ navbarMenu("Model Options and Settings", icon = icon("wrench", lib = "font-aweso
                                 "None" = "none"
                               ), selected = "standard"),
                  numericInput("bootstrapoptions", label = "Number of bootstrap draws, if bootstrapping is used." , value = 1000),
-                 br()
-        )),       
+                br(),
+                p("Using bootstrap will take some awhile even when hosted locally"),
+                br()
+        )),
 
         tabPanel("About", icon = icon("users", lib = "font-awesome"),
-                 
+
                  strong('List of Packages Used'), br(),
                  code('library(shiny)'),br(),
                  code('library(shinyAce)'),br(),
                  code('library(psych)'),br(),
             code('library(lavaan)'),br(),
 
-          
+
 
             br(),
 
 strong('Author'),
 
 HTML('<div style="clear: left;"><img src="http://kylehamilton.com/wp-content/uploads/2014/11/kyle80.jpg" alt="" style="float: left; margin-right:5px" /></div>'),
-p(a("William Kyle Hamilton - University of California, Merced", href="http://www.kylehamilton.com", target="_blank")),
+p(a("W. Kyle Hamilton - University of California, Merced", href="http://www.kylehamilton.com", target="_blank")),
             br(),
             br(),
 br(),
 br(),
 strong('License'),
 
-p("lavaan.shiny"),
-p(" Copyright 2016  William Kyle Hamilton"),
+p("lavaan.shiny version 1.1"),
+p(" Copyright 2016  W. Kyle Hamilton"),
 
 p(" This program is free software you can redistribute it and or modify
   it under the terms of the GNU General Public License as published by

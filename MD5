@@ -1,6 +1,8 @@
-10da0d06e5ace9fa77e9a6cf1f9eeda9 *DESCRIPTION
+5beb27437cf04f4e7d207aa77de740ec *DESCRIPTION
 ab8e67c943af49823eb62aa04cc226d6 *NAMESPACE
+5d2e037483609c0dc957697342463f08 *NEWS
 19ad6b35bbba2270a292ab467b9c7088 *R/lavaanshiny.R
-5bf6162bfd138d449515ab19ef43b796 *inst/shiny/server.R
-882734a91e35f7d89744a07cdb618d05 *inst/shiny/ui.R
+0ab261f5412ee7a6b2f67eae46eeedab *README.md
+392289ba23b2ee4fa6295d20a221ef40 *inst/shiny/server.R
+20eae7a3cfae817dbdd188517a3ad988 *inst/shiny/ui.R
 598bb888affd74a84821b1f896be3a26 *man/lavaan.shiny.Rd
