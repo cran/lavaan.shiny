@@ -7,17 +7,17 @@ shinyServer(function(input, output) {
 
    bscfa <- reactive({
      x <- read.csv(text=input$textcfa, sep="\t")
-     describe(x)[2:13]
+     psych::describe(x)[2:13]
    })
 
     bsgcm <- reactive({
         x <- read.csv(text=input$textgcm, sep="\t")
-        describe(x)[2:13]
+        psych::describe(x)[2:13]
     })
 
     bssem <- reactive({
       x <- read.csv(text=input$textsem, sep="\t")
-      describe(x)[2:13]
+      psych::describe(x)[2:13]
     })
 
     correl.cfa <- reactive({
@@ -37,16 +37,16 @@ shinyServer(function(input, output) {
 
     makecorPlot.cfa <- function(){
       x <- read.csv(text=input$textcfa, sep="\t")
-      pairs.panels(x)
+      psych::pairs.panels(x)
     }
 
     makecorPlot.gcm <- function(){
         x <- read.csv(text=input$textgcm, sep="\t")
-        pairs.panels(x)
+        psych::pairs.panels(x)
     }
     makecorPlot.sem <- function(){
       x <- read.csv(text=input$textsem, sep="\t")
-      pairs.panels(x)
+      psych::pairs.panels(x)
     }
 
     output$corPlot.cfa <- renderPlot({

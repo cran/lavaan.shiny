@@ -1,6 +1,0 @@
-# CHANGES TO lavaan.shiny 1.1 #
-
-## SIGNIFICANT USER-VISIBILE CHANGES ##
-
-* Fixed a bug in plot export
-* Added some options for layout of graphic models

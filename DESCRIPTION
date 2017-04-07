@@ -1,8 +1,8 @@
 Package: lavaan.shiny
 Type: Package
 Title: Latent Variable Analysis with Shiny
-Version: 1.1
-Date: 2016-06-23
+Version: 1.2
+Date: 2017-04-06
 Author: W. Kyle Hamilton <kyle.hamilton@gmail.com>
 Maintainer: W. Kyle Hamilton <kyle.hamilton@gmail.com>
 Description: Interactive shiny application for working with different kinds of
@@ -15,6 +15,6 @@ Imports: shiny, shinyAce, psych, lavaan, semPlot
 LazyData: TRUE
 RoxygenNote: 5.0.1
 NeedsCompilation: no
-Packaged: 2016-06-24 01:09:01 UTC; hcilab
+Packaged: 2017-04-07 01:05:26 UTC; hcilab
 Repository: CRAN
-Date/Publication: 2016-06-24 07:30:45
+Date/Publication: 2017-04-07 06:05:09 UTC
